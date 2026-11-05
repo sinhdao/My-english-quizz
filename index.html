@@ -8,4 +8,47 @@ else if(tab==='cards')renderCards(a);else if(tab==='quiz')renderQuiz(a);else ren
 function startCards(onlyDue=false){tab='cards';let cards=data.cards.filter(c=>!onlyDue||due(c));session={type:'cards',ids:cards.map(c=>c.id).sort(()=>Math.random()-.5),index:0,flipped:false,done:0};render()};function renderCards(a){if(!session||session.type!=='cards'){a.innerHTML=`<div class="card"><h2>Flashcards</h2><p>Chọn cách ôn, chạm vào thẻ để lật mặt.</p><div class="stack"><button onclick="startCards(true)">Ôn từ đến hạn</button><button class="secondary" onclick="startCards(false)">Ôn tất cả từ</button></div></div>`;return}let q=session;if(q.index>=q.ids.length){a.innerHTML=`<div class="card"><h2>Hoàn thành! 🎉</h2><p>Chị đã ôn ${q.done} từ. Hẹn gặp lại ở lượt tiếp theo.</p><button onclick="go('home')">Về trang chủ</button></div>`;return}let c=data.cards.find(x=>x.id===q.ids[q.index]);a.innerHTML=`<div class="row"><h2>Flashcards</h2><span class="pill">${q.index+1}/${q.ids.length}</span></div><div class="progress"><div style="width:${100*q.index/q.ids.length}%"></div></div><div class="card"><div class="flash" onclick="flip()"><span class="muted">${q.flipped?'NGHĨA TIẾNG VIỆT':'TỪ TIẾNG ANH'}</span><strong>${esc(q.flipped?c.vi:c.en)}</strong>${q.flipped?`<p>${esc(c.ex)}</p>`:'<p class="muted">Chạm để xem nghĩa</p>'}</div><p class="muted">${esc(c.group)}</p>${q.flipped?'<div class="actions"><button class="ghost" onclick="rate(false)">✕ Chưa nhớ</button><button onclick="rate(true)">✓ Đã nhớ</button></div>':'<button class="secondary wide" onclick="flip()">Lật thẻ</button>'}</div>`};function flip(){session.flipped=!session.flipped;render()};function rate(ok){let c=data.cards.find(x=>x.id===session.ids[session.index]);c.seen++;if(ok){c.correct++;c.level=Math.min(5,c.level+1)}else c.level=0;c.due=plusDays(ok?[1,3,7,14,30][c.level-1]:1);data.history.push({date:today(),id:c.id,ok,mode:'card'});save();session.index++;session.done++;session.flipped=false;render()}
 function startQuiz(){tab='quiz';let pool=[...data.cards].sort(()=>Math.random()-.5);session={type:'quiz',ids:pool.slice(0,Math.min(5,pool.length)).map(c=>c.id),index:0,score:0,selected:null,dir:Math.random()<.5?'en':'vi'};render()};function renderQuiz(a){if(!session||session.type!=='quiz'){a.innerHTML=`<div class="card"><h2>Quiz 5 câu</h2><p>Trắc nghiệm Anh → Việt hoặc Việt → Anh, đổi chiều ngẫu nhiên. Đáp án sai sẽ được ôn lại sớm.</p><button class="wide" onclick="startQuiz()">Bắt đầu Quiz</button></div>`;return}let q=session;if(q.index>=q.ids.length){a.innerHTML=`<div class="card"><h2>Kết quả: ${q.score}/${q.ids.length} 🎯</h2><p>${q.score===q.ids.length?'Xuất sắc!':'Các từ chưa nhớ đã được đưa vào lịch ôn sớm.'}</p><div class="stack"><button onclick="startQuiz()">Làm Quiz mới</button><button class="secondary" onclick="go('home')">Về trang chủ</button></div></div>`;return}let c=data.cards.find(x=>x.id===q.ids[q.index]);if(!q.options){let key=q.dir==='en'?'vi':'en';q.options=[c,...data.cards.filter(x=>x.id!==c.id).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5).map(x=>({id:x.id,text:x[key]}))}a.innerHTML=`<div class="row"><h2>Quick Quiz</h2><span class="pill">${q.index+1}/${q.ids.length}</span></div><div class="progress"><div style="width:${100*q.index/q.ids.length}%"></div></div><div class="card"><p class="muted">${q.dir==='en'?'Chọn nghĩa tiếng Việt':'Chọn từ tiếng Anh'}:</p><h2>${esc(c[q.dir])}</h2>${q.options.map(o=>`<button class="choice ${q.selected!==null?(o.id===c.id?'correct':o.id===q.selected?'wrong':''):''}" ${q.selected!==null?'disabled':''} onclick="choose('${esc(o.id)}')">${esc(o.text)}</button>`).join('')}${q.selected!==null?`<p>${q.selected===c.id?'✓ Chính xác!':'✕ Chưa đúng.'} <strong>${esc(c.en)}</strong> — ${esc(c.vi)}</p><p class="muted">${esc(c.ex)}</p><button class="wide" onclick="nextQ()">${q.index===q.ids.length-1?'Xem kết quả':'Câu tiếp theo'}</button>`:''}</div>`};function choose(id){let q=session;if(q.selected!==null)return;q.selected=id;let c=data.cards.find(x=>x.id===q.ids[q.index]),ok=id===c.id;c.seen++;if(ok){q.score++;c.correct++;c.level=Math.min(5,c.level+1)}else c.level=0;c.due=plusDays(ok?[1,3,7,14,30][c.level-1]:1);data.history.push({date:today(),id:c.id,ok,mode:'quiz'});save();render()};function nextQ(){session.index++;session.selected=null;session.options=null;session.dir=session.dir==='en'?'vi':'en';render()};
 function renderWords(a){a.innerHTML=`<div class="card"><h2>Thêm từ mới</h2><label>Từ / cấu trúc tiếng Anh</label><input id="en" placeholder="e.g. acknowledge feelings"><label>Nghĩa tiếng Việt</label><input id="vi" placeholder="Thừa nhận cảm xúc"><label>Ví dụ ngắn (không bắt buộc)</label><input id="ex" placeholder="I acknowledge her feelings."><label>Nhóm từ</label><select id="group"><option>Parenting English</option><option>IVF Research English</option><option>Daily English</option></select><button class="wide" onclick="addWord()">＋ Lưu từ mới</button></div><div class="card"><div class="row"><h2>Kho từ (${data.cards.length})</h2><button class="secondary" onclick="exportData()">Xuất sao lưu</button></div><input id="filter" placeholder="Tìm từ..." oninput="filterWords()"><div id="wordList"></div></div><div class="card"><h2>Khôi phục dữ liệu</h2><p class="muted">Nhập tệp JSON đã xuất trước đó. Thao tác này thay thế dữ liệu hiện tại.</p><input type="file" id="restore" accept="application/json,.json"><button class="ghost wide" onclick="importData()">Nhập bản sao lưu</button></div>`;filterWords()};function filterWords(){let el=document.getElementById('wordList');if(!el)return;let term=(document.getElementById('filter').value||'').toLowerCase();el.innerHTML=data.cards.filter(c=>(c.en+' '+c.vi+' '+c.group).toLowerCase().includes(term)).map(c=>`<div class="word"><div class="row"><div><strong>${esc(c.en)}</strong><small>${esc(c.vi)} · ${esc(c.group)}</small></div><button class="ghost small" onclick="removeWord('${esc(c.id)}')">Xóa</button></div></div>`).join('')||'<p>Không có từ phù hợp.</p>'};function addWord(){let en=document.getElementById('en').value.trim(),vi=document.getElementById('vi').value.trim(),ex=document.getElementById('ex').value.trim(),group=document.getElementById('group').value;if(!en||!vi)return alert('Vui lòng nhập từ và nghĩa.');if(data.cards.some(c=>c.en.toLowerCase()===en.toLowerCase()&&c.group===group))return alert('Từ này đã có trong nhóm.');data.cards.push({id:'user-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),en,vi,ex,group,due:today(),level:0,seen:0,correct:0});save();render();alert('Đã thêm từ mới!')};function removeWord(id){if(!confirm('Xóa từ này khỏi kho?'))return;data.cards=data.cards.filter(c=>c.id!==id);save();render()};function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-english-quiz-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}function importData(){let file=document.getElementById('restore').files[0];if(!file)return alert('Chọn tệp sao lưu JSON.');if(!confirm('Thay thế toàn bộ dữ liệu hiện tại?'))return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);if(!Array.isArray(d.cards)||!d.cards.every(c=>typeof c.en==='string'&&typeof c.vi==='string'))throw Error();data={cards:d.cards,history:Array.isArray(d.history)?d.history:[]};save();render();alert('Khôi phục thành công.')}catch{alert('Tệp không hợp lệ.')}};reader.readAsText(file)}render();
+
+const VOCAB_API = 'https://script.google.com/macros/s/AKfycbzmroLK7R-V5M9rQYxKKTZRWG6FhaF5iBhZ9kR0ITJYNna3CMQtkawobY6ZWVSze0sh/exec';
+
+function syncVocabulary() {
+  const callback = 'receiveVocabulary';
+  const old = document.getElementById('vocab-sync-script');
+  if (old) old.remove();
+
+  window.receiveVocabulary = function(response) {
+    const words = response.words || [];
+    let added = 0;
+
+    words.forEach(w => {
+      const exists = data.cards.some(c =>
+        c.front.toLowerCase().trim() === w.front.toLowerCase().trim()
+      );
+
+      if (!exists) {
+        data.cards.push({
+          id: Date.now() + Math.random(),
+          front: w.front,
+          back: w.back,
+          example: w.example || '',
+          topic: w.topic || 'General',
+          due: new Date().toISOString().slice(0, 10)
+        });
+        added++;
+      }
+    });
+
+    localStorage.setItem(KEY, JSON.stringify(data));
+    document.getElementById('vocab-sync-script')?.remove();
+    console.log('Vocabulary sync:', added, 'new words');
+  };
+
+  const script = document.createElement('script');
+  script.id = 'vocab-sync-script';
+  script.src = VOCAB_API + '?callback=' + callback;
+  document.body.appendChild(script);
+}
+
+window.addEventListener('load', syncVocabulary);
+
 </script></body></html>
