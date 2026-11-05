@@ -12,43 +12,28 @@ function renderWords(a){a.innerHTML=`<div class="card"><h2>Thêm từ mới</h2>
 const VOCAB_API = 'https://script.google.com/macros/s/AKfycbzmroLK7R-V5M9rQYxKKTZRWG6FhaF5iBhZ9kR0ITJYNna3CMQtkawobY6ZWVSze0sh/exec';
 
 function syncVocabulary() {
-  const callback = 'receiveVocabulary';
   const old = document.getElementById('vocab-sync-script');
   if (old) old.remove();
-
   window.receiveVocabulary = function(response) {
-    const words = response.words || [];
+    const words = Array.isArray(response?.words) ? response.words : [];
     let added = 0;
-
     words.forEach(w => {
-      const exists = data.cards.some(c =>
-        c.front.toLowerCase().trim() === w.front.toLowerCase().trim()
-      );
-
-      if (!exists) {
-        data.cards.push({
-          id: Date.now() + Math.random(),
-          front: w.front,
-          back: w.back,
-          example: w.example || '',
-          topic: w.topic || 'General',
-          due: new Date().toISOString().slice(0, 10)
-        });
-        added++;
-      }
+      if (!w.front || !w.back) return;
+      const normalize = s => String(s || '').toLowerCase().trim().replace(/[’‘]/g, "'");
+      if (data.cards.some(c => normalize(c.en) === normalize(w.front))) return;
+      data.cards.push({id:'sheet-'+Date.now()+'-'+Math.random().toString(36).slice(2),en:w.front,vi:w.back,ex:w.example||'',group:w.topic||'Parenting English',due:today(),level:0,seen:0,correct:0});
+      added++;
     });
-
-    localStorage.setItem(KEY, JSON.stringify(data));
+    if (added) { save(); render(); }
     document.getElementById('vocab-sync-script')?.remove();
     console.log('Vocabulary sync:', added, 'new words');
   };
-
   const script = document.createElement('script');
   script.id = 'vocab-sync-script';
-  script.src = VOCAB_API + '?callback=' + callback;
+  script.src = VOCAB_API + '?callback=receiveVocabulary&t=' + Date.now();
+  script.onerror = () => console.warn('Vocabulary sync unavailable');
   document.body.appendChild(script);
 }
-
 window.addEventListener('load', syncVocabulary);
 
 </script></body></html>
