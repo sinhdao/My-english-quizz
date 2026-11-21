@@ -103,6 +103,16 @@ Hỏi thêm: người học mất bao lâu, có chỗ nào bị kẹt từ mới
 
 ---
 
+## Bổ sung Listening (cần audio; khoảng 15-20 phút)
+
+Chỉ thực hiện nếu người học cung cấp audio và bộ câu hỏi, hoặc giao diện có thể mở nguồn audio họ có quyền truy cập. Nếu không có audio hoặc không thể nghe tệp, ghi Listening là “chưa đánh giá”; không dùng transcript để thay thế.
+
+1. Chỉ gửi câu hỏi/hướng dẫn trước; không tiết lộ transcript hay đáp án. Chờ người học nghe và nộp câu trả lời.
+2. Đối chiếu từng câu với nội dung thực sự nghe được. Ghi số đúng/tổng số, loại lỗi và mốc thời gian khi xác định được. Nếu âm thanh không rõ, ghi câu đó là chưa xác định thay vì đoán.
+3. Chỉ ước lượng band khi đề, số câu và quy tắc quy đổi phù hợp đã rõ. Với bài không chuẩn hóa, báo điểm thô và phân tích lỗi, không gán band.
+
+---
+
 ## Phần 3: Writing Task 2 (40 phút)
 
 Gửi đề, yêu cầu viết ít nhất 250 từ, không dùng công cụ hỗ trợ.
@@ -115,7 +125,7 @@ Sau khi nhận bài: đếm số từ, chấm theo bốn tiêu chí trong `rubri
 
 ## Phần 4: Speaking (15 phút, bằng văn bản)
 
-Người học gõ câu trả lời như đang nói (hoặc dùng nhập giọng nói trên bàn phím rồi dán lại). Nhắc: viết đúng như mình sẽ nói, không chỉnh sửa cho đẹp.
+Nếu giao diện nhận audio, yêu cầu người học ghi âm câu trả lời và gửi tệp để có thể đánh giá đủ bốn tiêu chí Speaking. Nếu không hỗ trợ audio, người học có thể gõ câu trả lời như đang nói; khi đó chỉ nhận xét ba tiêu chí ngôn ngữ và ghi Pronunciation là “chưa đánh giá”. Không suy luận phát âm từ transcript.
 
 **Part 1 (trả lời mỗi câu 2-3 câu):**
 1. Where do you live, and what do you like about the area?
@@ -131,7 +141,7 @@ You should say: who this person is; what they taught you; how they taught you; a
 1. Why do some people find learning a language more difficult than others?
 2. Do you think technology has changed the way people learn? How?
 
-Chấm theo ba tiêu chí: Fluency & Coherence, Lexical Resource, Grammatical Range & Accuracy. Ghi rõ rằng Pronunciation không đánh giá được bằng văn bản. Với Fluency, đánh giá dựa trên độ dài, mạch lạc, cách mở rộng ý và việc dùng từ nối, kèm lưu ý rằng văn bản không phản ánh được độ ngập ngừng khi nói.
+Khi có audio nghe được, đánh giá đủ bốn tiêu chí theo `rubrics.md` và quy trình trong `audio-assessment.md`. Khi chỉ có văn bản, chỉ nhận xét Fluency & Coherence, Lexical Resource, Grammatical Range & Accuracy; không ước lượng band Speaking tổng thể như đã đủ dữ liệu. Với Fluency qua văn bản, nói rõ rằng văn bản không phản ánh được độ ngập ngừng khi nói.
 
 ---
 
@@ -143,9 +153,9 @@ Gửi người học một bản tóm tắt gồm:
 |---|---|---|
 | Reading | | Phần 2 + Phần 1 |
 | Writing | | Phần 3 |
-| Speaking (không gồm Pronunciation) | | Phần 4 |
-| Listening | Chưa đánh giá | Cần đề có audio |
-| **Tổng ước lượng** | | Trung bình các kỹ năng đã đánh giá, làm tròn 0.5 |
+| Speaking | | Phần 4; đánh giá Pronunciation chỉ khi có audio |
+| Listening | | Bài bổ sung nếu có audio; nếu không ghi “chưa đánh giá” |
+| **Tổng ước lượng** | | Chỉ tính khi đủ dữ liệu cho cả bốn kỹ năng; nếu thiếu Listening hoặc Pronunciation, ghi “chưa đánh giá” thay vì ước lượng band tổng |
 
 Sau đó:
 1. Nêu khoảng cách tới band 7.0 của từng kỹ năng.
