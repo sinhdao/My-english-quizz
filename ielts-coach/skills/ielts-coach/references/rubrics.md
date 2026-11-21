@@ -33,13 +33,15 @@ Thay Task Response bằng Task Achievement: có tóm tắt đặc điểm chính
 
 ## Speaking
 
-Ba tiêu chí chấm được bằng văn bản, mỗi tiêu chí cùng trọng số với Pronunciation (25%). Khi báo band Speaking, ghi rõ là ước lượng dựa trên ba tiêu chí.
+Speaking có bốn tiêu chí, mỗi tiêu chí chiếm 25%. Chỉ ước lượng band Speaking tổng thể khi có đủ bằng chứng cho cả bốn tiêu chí. Nếu thiếu audio, chỉ nhận xét ba tiêu chí ngôn ngữ và ghi Pronunciation là “chưa đánh giá”; không trình bày band của ba tiêu chí như band Speaking đầy đủ.
 
-**Fluency & Coherence**: nói liền mạch hay ngắt quãng nhiều, có mở rộng ý hay trả lời cụt, ý có nối với nhau không.
+**Fluency & Coherence**: nói liền mạch hay ngắt quãng nhiều, có mở rộng ý hay trả lời cụt, ý có nối với nhau không. Từ transcript, chỉ nhận xét được tổ chức và phát triển ý; không suy luận tốc độ/ngập ngừng thực tế.
 
 **Lexical Resource**: nói về chủ đề quen thuộc và cả chủ đề trừu tượng ở Part 3, diễn đạt lại (paraphrase) khi thiếu từ, dùng idiom và collocation đúng chỗ.
 
 **Grammatical Range & Accuracy**: dùng được cấu trúc phức không, mắc lỗi cơ bản (thì, chủ-vị, mạo từ) nhiều hay ít.
+
+**Pronunciation (cần audio)**: đánh giá mức độ dễ hiểu, độ nhất quán của âm, trọng âm từ/câu, nhịp điệu, nối âm và ngữ điệu. Không yêu cầu giọng bản ngữ; ưu tiên khả năng người nghe hiểu lời nói. Chỉ khẳng định lỗi âm cụ thể khi audio đủ rõ; nêu ví dụ ngắn và mức độ chắc chắn.
 
 ## Mô tả ngắn từng mức band (dùng để định hướng)
 
@@ -58,4 +60,4 @@ Số câu đúng quy đổi khác nhau giữa Academic và General Training và 
 
 ## Cách tổng hợp band tổng
 
-Band tổng là trung bình bốn kỹ năng, làm tròn theo quy tắc IELTS. Khi chưa có Listening, chỉ báo trung bình ba kỹ năng còn lại và nói rõ chưa đầy đủ. Nếu một kỹ năng thấp hơn mục tiêu hơn 1.0 band, báo đó là ưu tiên số một.
+Chỉ ước lượng band tổng khi có dữ liệu cho cả bốn kỹ năng. Nếu thiếu Listening hoặc Pronunciation, ghi kỹ năng tương ứng là “chưa đánh giá”; có thể nêu các band đã đánh giá riêng, nhưng không gọi trung bình phần còn lại là band tổng IELTS. Nếu một kỹ năng thấp hơn mục tiêu hơn 1.0 band, báo đó là ưu tiên số một.
