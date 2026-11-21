@@ -1,0 +1,10 @@
+{
+  "name": "ielts-coach",
+  "version": "0.1.0",
+  "description": "Gia sư IELTS cá nhân hóa: kiểm tra đầu vào, ước lượng band, lộ trình theo mục tiêu, luyện và chấm Writing/Speaking/Reading, ôn từ vựng cách quãng. Giao tiếp bằng tiếng Việt.",
+  "author": {
+    "name": "sinhdao"
+  },
+  "license": "MIT",
+  "keywords": ["ielts", "english", "tutor", "vietnamese", "speaking", "writing"]
+}
