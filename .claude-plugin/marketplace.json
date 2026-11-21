@@ -1,0 +1,13 @@
+{
+  "name": "my-english-quizz",
+  "owner": {
+    "name": "sinhdao"
+  },
+  "plugins": [
+    {
+      "name": "ielts-coach",
+      "source": "./ielts-coach",
+      "description": "Gia sư IELTS cá nhân hóa bằng tiếng Việt: kiểm tra đầu vào, lộ trình, luyện và chấm Writing/Speaking/Reading."
+    }
+  ]
+}
